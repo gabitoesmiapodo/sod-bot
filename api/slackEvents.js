@@ -9,7 +9,8 @@ module.exports = (req, res) => {
     console.log(body);
   }
 
-  res.status(200).send("Event received");
+  // res.status(200).send("Event received");
+  res.status(404).send("Not Found");
 };
 
 const { App, ExpressReceiver } = require("@slack/bolt");
