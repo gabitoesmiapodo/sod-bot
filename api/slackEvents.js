@@ -28,6 +28,7 @@ const spanishWords = [
   "creer",
   "cuando",
   "dar",
+  "de",
   "deber",
   "decir",
   "dejar",
@@ -49,9 +50,11 @@ const spanishWords = [
   "hola",
   "hombre",
   "laburar",
+  "la",
   "las",
   "llegar",
   "llevar",
+  "lo",
   "los",
   "mango",
   "mate",
@@ -97,6 +100,7 @@ const spanishWords = [
   "tener",
   "tiempo",
   "todo",
+  "una",
   "uno",
   "ver",
   "vez",
@@ -105,10 +109,11 @@ const spanishWords = [
 
 app.message(
   new RegExp(spanishWords.join("|"), "i"),
-  async ({ message, say }) => {
-    await say({
-      text: `Hi, my name is <https://www.youtube.com/watch?v=Cuz3t3eUqVs|Sargent D> and I'm here to gently remind you that this is an English only channel.`,
-      unfurl_links: false,
+  async ({ message, client }) => {
+    await client.chat.postEphemeral({
+      channel: message.channel,
+      user: message.user, // Only the user who sent the message will see this
+      text: `Hi, my name is Sargent D and I'm here to gently remind you that this is an English only channel.`,
       blocks: [
         {
           type: "header",
@@ -130,20 +135,43 @@ app.message(
         },
       ],
     });
+
+    // await say({
+    //   text: `Hi, my name is Sargent D and I'm here to gently remind you that this is an English only channel.`,
+    //   blocks: [
+    //     {
+    //       type: "header",
+    //       text: {
+    //         type: "plain_text",
+    //         text: "🚫 Spanish Detected 🚫",
+    //         emoji: true,
+    //       },
+    //     },
+    //     {
+    //       type: "section",
+    //       text: {
+    //         type: "mrkdwn",
+    //         text: "_Hi, my name is <https://www.youtube.com/watch?v=Cuz3t3eUqVs|Sargent D> and I'm here to gently remind you that this is an *English only* channel._",
+    //       },
+    //     },
+    //     {
+    //       type: "divider",
+    //     },
+    //   ],
+    // });
   }
 );
 
 module.exports = async (req, res) => {
-  // if (req.method === "POST") {
-  const { challenge } = req.body;
+  if (req.method === "POST") {
+    const { challenge } = req.body;
 
-  if (challenge) {
-    return res.status(200).send({ challenge });
+    if (challenge) {
+      res.status(200).send({ challenge });
+    } else {
+      receiver.requestHandler(req, res);
+    }
+  } else {
+    res.status(200).send("This endpoint is for Slack events. Shoo.");
   }
-  // else {
-  receiver.requestHandler(req, res);
-  //   }
-  // } else {
-  //   res.status(200).send("This endpoint is for Slack events. Shoo.");
-  // }
 };
