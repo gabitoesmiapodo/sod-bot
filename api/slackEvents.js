@@ -1,11 +1,3 @@
-const requestHandler = async (req, res) => {
-  const body = JSON.parse(req.body);
-
-  if (body.challenge) {
-    return res.status(200).json({ challenge: body.challenge });
-  }
-};
-
 const { App, ExpressReceiver } = require("@slack/bolt");
 
 // Initialize your custom receiver
@@ -143,5 +135,13 @@ app.message(
   }
 );
 
-const receiverApp = receiver.app;
-module.exports = { receiverApp, requestHandler };
+module.exports = async (req, res) => {
+  const { challenge } = req.body;
+
+  console.log(req.body);
+
+  if (challenge) {
+    return res.status(200).send({ challenge });
+  }
+  return receiver.app;
+};
