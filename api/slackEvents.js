@@ -1,3 +1,13 @@
+module.exports = (req, res) => {
+  const body = JSON.parse(req.body);
+
+  if (body.challenge) {
+    return res.status(200).json({ challenge: body.challenge });
+  }
+
+  res.status(200).send("Event received");
+};
+
 const { App, ExpressReceiver } = require("@slack/bolt");
 
 // Initialize your custom receiver
@@ -137,11 +147,3 @@ app.message(
 
 // Export the receiver's router as the module's default export, for Vercel to serve
 module.exports = receiver.app;
-
-module.exports = (req, res) => {
-  const { body } = req;
-  // Your Slack bot's logic here. For example, handling a verification challenge:
-  if (body.challenge) {
-    res.status(200).send(body.challenge);
-  }
-};
