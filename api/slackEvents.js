@@ -147,6 +147,6 @@ const handleResponse = async (req, res) => {
   res.status(200).send("Event received");
 };
 
-receiver.app.get("/", handleResponse);
+receiver.app.get("/slack/events", handleResponse);
 
 module.exports = receiver.app;
