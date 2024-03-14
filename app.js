@@ -1,16 +1,12 @@
-const { App, ExpressReceiver } = require("@slack/bolt");
+const { App } = require("@slack/bolt");
+require("dotenv").config();
 
-// Initialize your custom receiver
-const receiver = new ExpressReceiver({
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN,
   signingSecret: process.env.SLACK_SIGNING_SECRET,
 });
 
-// Initializes your app with your bot token and signing secret
-const app = new App({
-  token: process.env.SLACK_BOT_TOKEN,
-  receiver,
-});
-
+// List of common Spanish words to detect
 const spanishWords = [
   "ahora",
   "alguno",
@@ -144,16 +140,7 @@ app.message(
   }
 );
 
-module.exports = async (req, res) => {
-  if (req.method === "POST") {
-    const { challenge } = req.body;
-
-    if (challenge) {
-      res.status(200).send({ challenge });
-    } else {
-      receiver.requestHandler(req, res);
-    }
-  } else {
-    res.status(200).send("This endpoint is for Slack events. Shoo.");
-  }
-};
+(async () => {
+  await app.start(process.env.PORT || 3000);
+  console.log("Bot is running!");
+})();
