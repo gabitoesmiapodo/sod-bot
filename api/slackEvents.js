@@ -135,9 +135,18 @@ app.message(
   }
 );
 
-module.exports = receiver.app;
+const handleResponse = async (req, res) => {
+  const { challenge } = req.body;
 
-(async () => {
-  await app.start(process.env.PORT || 3000);
-  console.log("Bot is running!");
-})();
+  // Respond with the challenge parameter to verify the URL
+  if (challenge) {
+    return res.status(200).send({ challenge });
+  }
+
+  // Handle other events or requests
+  res.status(200).send("Event received");
+};
+
+receiver.app.get("/", handleResponse);
+
+module.exports = receiver.app;
