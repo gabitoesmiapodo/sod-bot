@@ -1,4 +1,4 @@
-module.exports = (req, res) => {
+const requestHandler = async (req, res) => {
   const body = JSON.parse(req.body);
 
   if (body.challenge) {
@@ -146,9 +146,9 @@ app.message(
       ],
     });
 
-    console.log(message);
+    // console.log(message);
   }
 );
 
-// Export the receiver's router as the module's default export, for Vercel to serve
-module.exports = receiver.app;
+const receiverApp = receiver.app;
+module.exports = { receiverApp, requestHandler };
