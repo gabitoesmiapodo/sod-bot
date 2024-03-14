@@ -2,15 +2,8 @@ const requestHandler = async (req, res) => {
   const body = JSON.parse(req.body);
 
   if (body.challenge) {
-    console.log("Responding to challenge");
     return res.status(200).json({ challenge: body.challenge });
-  } else {
-    console.log("Received event");
-    console.log(body);
   }
-
-  // res.status(200).send("Event received");
-  res.status(404).send("Not Found");
 };
 
 const { App, ExpressReceiver } = require("@slack/bolt");
