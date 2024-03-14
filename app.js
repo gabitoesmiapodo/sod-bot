@@ -126,8 +126,6 @@ app.message(
         },
       ],
     });
-
-    // console.log(message);
   }
 );
 
