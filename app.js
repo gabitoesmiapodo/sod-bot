@@ -42,6 +42,7 @@ const spanishWords = [
   "hablar",
   "hacer",
   "hasta",
+  "hola",
   "hombre",
   "laburar",
   "las",
@@ -102,9 +103,32 @@ app.message(
   new RegExp(spanishWords.join("|"), "i"),
   async ({ message, say }) => {
     // Include a link in the response message
-    await say(
-      `Hi, my name is <https://www.youtube.com/watch?v=Cuz3t3eUqVs|Sargent D.> and I'm here to gently remind you that this is an English only channel.`
-    );
+    // unfurl_links: false,
+    // text: `Hi, my name is <https://www.youtube.com/watch?v=Cuz3t3eUqVs|Sargent D> and I'm here to gently remind you that this is an English only channel.`,
+    await say({
+      blocks: [
+        {
+          type: "header",
+          text: {
+            type: "plain_text",
+            text: "🚫 Spanish Detected 🚫",
+            emoji: true,
+          },
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "_Hi, my name is <https://www.youtube.com/watch?v=Cuz3t3eUqVs|Sargent D> and I'm here to gently remind you that this is an *English only* channel._",
+          },
+        },
+        {
+          type: "divider",
+        },
+      ],
+    });
+
+    console.log(message);
   }
 );
 
