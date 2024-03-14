@@ -26,6 +26,8 @@ const spanishWords = [
   "copado",
   "cosa",
   "creer",
+  "cual",
+  "cuando",
   "cuando",
   "dar",
   "de",
@@ -40,9 +42,12 @@ const spanishWords = [
   "encontrar",
   "entonces",
   "entre",
+  "es",
   "ese",
+  "esta",
   "estar",
   "este",
+  "esto",
   "grande",
   "guita",
   "hablar",
@@ -136,30 +141,6 @@ app.message(
         },
       ],
     });
-
-    // await say({
-    //   text: `Hi, my name is Sargent D and I'm here to gently remind you that this is an English only channel.`,
-    //   blocks: [
-    //     {
-    //       type: "header",
-    //       text: {
-    //         type: "plain_text",
-    //         text: "🚫 Spanish Detected 🚫",
-    //         emoji: true,
-    //       },
-    //     },
-    //     {
-    //       type: "section",
-    //       text: {
-    //         type: "mrkdwn",
-    //         text: "_Hi, my name is <https://www.youtube.com/watch?v=Cuz3t3eUqVs|Sargent D> and I'm here to gently remind you that this is an *English only* channel._",
-    //       },
-    //     },
-    //     {
-    //       type: "divider",
-    //     },
-    //   ],
-    // });
   }
 );
 
