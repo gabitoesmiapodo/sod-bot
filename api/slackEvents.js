@@ -139,6 +139,7 @@ module.exports = async (req, res) => {
 
     if (challenge) {
       res.status(200).send({ challenge });
+      receiver.requestHandler(req, res);
     } else {
       receiver.requestHandler(req, res);
     }
