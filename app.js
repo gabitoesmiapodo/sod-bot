@@ -81,6 +81,7 @@ const spanishWords = [
   "poco",
   "poder",
   "poner",
+  "por",
   "porque",
   "posta",
   "primero",
@@ -110,7 +111,7 @@ const spanishWords = [
 ];
 
 app.message(
-  new RegExp(spanishWords.join("|"), "i"),
+  new RegExp(`\\b(${spanishWords.join("|")})\\b`, "i"),
   async ({ message, client }) => {
     await client.chat.postEphemeral({
       channel: message.channel,
