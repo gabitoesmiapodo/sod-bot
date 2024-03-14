@@ -1,12 +1,16 @@
-const { App } = require("@slack/bolt");
-require("dotenv").config();
+const { App, ExpressReceiver } = require("@slack/bolt");
 
-const app = new App({
-  token: process.env.SLACK_BOT_TOKEN,
+// Initialize your custom receiver
+const receiver = new ExpressReceiver({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
 });
 
-// List of common Spanish words to detect
+// Initializes your app with your bot token and signing secret
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN,
+  receiver,
+});
+
 const spanishWords = [
   "ahora",
   "alguno",
@@ -127,11 +131,9 @@ app.message(
       ],
     });
 
-    // console.log(message);
+    console.log(message);
   }
 );
 
-(async () => {
-  await app.start(process.env.PORT || 3000);
-  console.log("Bot is running!");
-})();
+// Export the receiver's router as the module's default export, for Vercel to serve
+module.exports = receiver.app;
