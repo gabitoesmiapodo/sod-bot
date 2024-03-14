@@ -138,15 +138,24 @@ app.message(
 const handleResponse = async (req, res) => {
   const { challenge } = req.body;
 
+  console.log(req);
+  console.log("asdasd");
+
+  // Respond with the challenge parameter to verify the URL
+  if (challenge) {
+    return res.status(200).send({ challenge });
+  }
+};
+
+receiver.app.get("/api/slackEvents", (req, res) => {
+  const { challenge } = req.body;
+
   // Respond with the challenge parameter to verify the URL
   if (challenge) {
     return res.status(200).send({ challenge });
   }
 
-  // Handle other events or requests
-  res.status(200).send("Event received");
-};
-
-receiver.app.get("/slack/events", handleResponse);
+  res.status(200).send("OK");
+});
 
 module.exports = receiver.app;
