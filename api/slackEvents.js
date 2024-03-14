@@ -135,13 +135,9 @@ app.message(
   }
 );
 
-module.exports = async (req, res) => {
-  const { challenge } = req.body;
+module.exports = receiver.app;
 
-  console.log(req.body);
-
-  if (challenge) {
-    return res.status(200).send({ challenge });
-  }
-  return receiver.app;
-};
+(async () => {
+  await app.start(process.env.PORT || 3000);
+  console.log("Bot is running!");
+})();
