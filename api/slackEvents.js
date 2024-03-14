@@ -134,16 +134,16 @@ app.message(
 );
 
 module.exports = async (req, res) => {
-  if (req.method === "POST") {
-    const { challenge } = req.body;
+  // if (req.method === "POST") {
+  const { challenge } = req.body;
 
-    if (challenge) {
-      res.status(200).send({ challenge });
-      receiver.requestHandler(req, res);
-    } else {
-      receiver.requestHandler(req, res);
-    }
-  } else {
-    res.status(200).send("This endpoint is for Slack events. Shoo.");
+  if (challenge) {
+    return res.status(200).send({ challenge });
   }
+  // else {
+  receiver.requestHandler(req, res);
+  //   }
+  // } else {
+  //   res.status(200).send("This endpoint is for Slack events. Shoo.");
+  // }
 };
