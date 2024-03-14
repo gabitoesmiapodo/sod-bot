@@ -137,3 +137,11 @@ app.message(
 
 // Export the receiver's router as the module's default export, for Vercel to serve
 module.exports = receiver.app;
+
+module.exports = (req, res) => {
+  const { body } = req;
+  // Your Slack bot's logic here. For example, handling a verification challenge:
+  if (body.challenge) {
+    res.status(200).send(body.challenge);
+  }
+};
